@@ -1,0 +1,65 @@
+.user {
+    background-color: #161b22;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.user img {
+    width: 140px;
+    height: 140px;
+    border: 4px solid #010409;
+    border-radius: 50%;
+}
+
+.stats{
+    display: flex;
+}
+
+.stats div {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.stats div:first-child{
+    border-right: 1px solid #6e7681;
+}
+
+.stats .number{
+    padding: .2rem .4rem;
+    background-color: #6e7681;
+    border-radius: 3px;
+}
+
+.location{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.location svg {
+    font-size: 1.5rem;
+    fill: #6e7681;
+}
+.location span {
+    color: #6e7681;
+}
+
+.user a{
+    text-align: center;
+    padding: 1rem;
+    background-color: #010409;
+    border-radius: 5px;
+    opacity: .75;
+    transition: .3s;
+}
+
+.user a:hover{
+    opacity: 1;
+}
