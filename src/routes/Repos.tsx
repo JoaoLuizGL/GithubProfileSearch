@@ -1,16 +1,17 @@
 import Search from '../components/Search';
 import { useState } from 'react';
-import type { UserProps } from '../types/User';
-import User from '../components/User';
+import type { ReposProps } from '../types/Repos';
+import Repos from '../components/Repos';
 import Error from '../components/Error';    
+import SearchRepos from '../components/SearchRepos';
 
-const Repos: React.FC = () => {
-    const [user, setUser] = useState<UserProps | null>(null);
+const ReposPage: React.FC = () => {
+    const [repos, setRepos] = useState<ReposProps | null>(null);
     const [error, setError] = useState(false);
 
     const loadRepos = async(userName: string) => {
         setError(false);
-        setUser(null);
+        setRepos(null);
 
         const res = await fetch(`https://api.github.com/users/${userName}/repos`)
         const data = await res.json();
@@ -20,23 +21,23 @@ const Repos: React.FC = () => {
             return;
         }
 
-        const userData: UserProps = {
-            avatar_url: data.avatar_url,
-            login: data.login,
-            location: data.location,
-            followers: data.followers,
-            following: data.following
+        const reposData: ReposProps = {
+            name: data.name,
+            repos_url: data.repos_url,
+            languages: data.languages,
+            forks: data.forks,
+            stargazers_count: data.stargazers_count
         }
-        setUser(userData);
+        setRepos(reposData);
     };
 
         return (
         <div>
-            <Search loadUser={loadUser}/>
-            {user && <User {...user} />}
+            <SearchRepos loadRepos={loadRepos}/>
+            {repos && <Repos {...repos} />}
             {error && <Error/>}
         </div>
     );
 };
 
-export default Repos
+export default ReposPage;
