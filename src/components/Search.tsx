@@ -12,13 +12,13 @@ const Search = ({loadUser}:SearchProps) => {
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             loadUser(userName);
-            setUserName(""); // Limpa o input
+            setUserName("");
         }
     };
 
     const handleClick = () => {
         loadUser(userName);
-        setUserName(""); // Limpa o input
+        setUserName("");
     };
 
     return (
