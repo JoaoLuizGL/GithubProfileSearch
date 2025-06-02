@@ -7,6 +7,7 @@
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .stats{
@@ -28,6 +29,16 @@
     padding: .2rem .4rem;
     background-color: #6e7681;
     border-radius: 3px;
+}
+
+.stars{
+    display: flex;
+    flex-direction: row;
+}
+
+.forks{
+    display: flex;
+    flex-direction: row;
 }
 
 .icons{
@@ -65,4 +76,12 @@
 
 .repos a:hover{
     opacity: 1;
+}
+
+/* Você pode colocar isso no App.css ou criar um novo arquivo */
+.repos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
 }

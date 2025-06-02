@@ -1,50 +1,54 @@
 import Search from '../components/Search';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReposProps } from '../types/Repos';
 import Repos from '../components/Repos';
 import Error from '../components/Error';    
 import SearchRepos from '../components/SearchRepos';
+import { useParams } from 'react-router-dom';
 
 const ReposPage: React.FC = () => {
-
-    console.log("ReposPage");
-    const [repos, setRepos] = useState<ReposProps | null>(null);
+    const { userName } = useParams<{ userName: string }>();
+    const [repos, setRepos] = useState<ReposProps[]>([]);
     const [error, setError] = useState(false);
 
     const loadRepos = async(userName: string) => {
-
-        console.log("loadRepos");
-
         setError(false);
-        setRepos(null);
+        setRepos([]);
 
-        // const res = await fetch(`https://api.github.com/users/${userName}/repos`)
-        const res = await fetch("https://api.github.com/repos/freeCodeCamp/freeCodeCamp")
+        const res = await fetch(`https://api.github.com/users/${userName}/repos`)
         const data = await res.json();
 
-        console.log(res.status);
-        
         if (res.status !== 200) {
             setError(true);
             return;
         }
 
-        const reposData: ReposProps = {
-            name: data.name,
-            html_url: data.html_url,
-            language: data.language,
-            forks: data.forks,
-            stargazers_count: data.stargazers_count
-        }
-        console.log(reposData);
+        const reposData: ReposProps[] = data.map((repo: any) => ({
+            name: repo.name,
+            html_url: repo.html_url,
+            language: repo.language,
+            forks: repo.forks,
+            stargazers_count: repo.stargazers_count
+        }));
+
         setRepos(reposData);
     };
 
-        return (
+    useEffect(() => {
+        if (userName) {
+            loadRepos(userName);
+        }
+    }, [userName]);
+
+    return (
         <div>
             <SearchRepos loadRepos={loadRepos}/>
-            {repos && <Repos {...repos} />}
-            {error && <Error/>}
+            <div className="repos-container">
+                {repos.map((repo) => (
+                    <Repos key={repo.html_url} {...repo} />
+                ))}
+            </div>
+            {error && <Error />}
         </div>
     );
 };
