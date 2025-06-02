@@ -12,7 +12,13 @@ const Search = ({loadUser}:SearchProps) => {
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             loadUser(userName);
+            setUserName(""); // Limpa o input
         }
+    };
+
+    const handleClick = () => {
+        loadUser(userName);
+        setUserName(""); // Limpa o input
     };
 
     return (
@@ -20,12 +26,16 @@ const Search = ({loadUser}:SearchProps) => {
             <h2>Busque por um usuário:</h2>
             <p>Conheça seus melhores repositórios</p>
             <div className={classes.searchContainer}>
-                <input type="text" placeholder="Digite o nome do usuário" 
-                onChange={(e) => setUserName(e.target.value)}
-                onKeyDown={handleKeyDown}/>
-                <button onClick={() => loadUser(userName)}>
+                <input
+                    type="text"
+                    placeholder="Digite o nome do usuário"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
+                <button onClick={handleClick}>
                     <BsSearch/>
-                </button> 
+                </button>
             </div>
         </div>
     );
