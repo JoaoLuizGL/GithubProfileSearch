@@ -19,7 +19,7 @@ const ReposPage: React.FC = () => {
         setRepos(null);
 
         // const res = await fetch(`https://api.github.com/users/${userName}/repos`)
-        const res = await fetch("https://api.github.com/repos/JoaoLuizGL/Pokedex")
+        const res = await fetch("https://api.github.com/repos/freeCodeCamp/freeCodeCamp")
         const data = await res.json();
 
         console.log(res.status);
@@ -30,9 +30,8 @@ const ReposPage: React.FC = () => {
         }
 
         const reposData: ReposProps = {
-            owner: data.owner.login,
             name: data.name,
-            repos_url: data.repos_url,
+            html_url: data.html_url,
             language: data.language,
             forks: data.forks,
             stargazers_count: data.stargazers_count

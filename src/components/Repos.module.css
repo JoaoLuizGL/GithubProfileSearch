@@ -34,14 +34,18 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
+    background-color: #010409;
+    padding: 5px;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem;
+    border-radius: 20%;
+    border: 2px solid #6e7681;
 }
 
 .icons svg {
     font-size: 1.5rem;
     background-color: #010409;
-}
-.icons span {
-    color: #006aff;
 }
 
 .language {

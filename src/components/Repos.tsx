@@ -1,4 +1,3 @@
-import React from 'react';
 import type { ReposProps } from '../types/Repos';
 import { MdCode } from 'react-icons/md';
 import {MdStar} from 'react-icons/md';
@@ -6,7 +5,7 @@ import { MdForkRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import classes from './Repos.module.css';
 
-const Repos = ({owner, name, repos_url, language, forks, stargazers_count}:ReposProps) => {
+const Repos = ({name, html_url, language, forks, stargazers_count}:ReposProps) => {
     return (
     <div>
         <div className={classes.repos}>
@@ -29,7 +28,7 @@ const Repos = ({owner, name, repos_url, language, forks, stargazers_count}:Repos
             <p className={classes.number}>{stargazers_count}</p>
         </div>
         </div>
-        <Link to={`/repo/${owner}/${name}`} className=''>Ver código</Link>
+        <Link to={html_url} className=''>Ver código</Link>
         </div>
     </div>    
     );
