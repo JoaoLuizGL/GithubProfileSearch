@@ -5,7 +5,7 @@ type ErrorProps = {
 const Error= (e: ErrorProps) => {
     return (
         <div>
-            <h1>ERRO AQUI</h1>
+            <h1>Nenhu usuário encontrado</h1>
         </div>
     );
 };
