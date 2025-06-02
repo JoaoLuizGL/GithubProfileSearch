@@ -1,4 +1,3 @@
-import Search from '../components/Search';
 import { useState, useEffect } from 'react';
 import type { ReposProps } from '../types/Repos';
 import Repos from '../components/Repos';
@@ -8,12 +7,14 @@ import { useParams } from 'react-router-dom';
 
 const ReposPage: React.FC = () => {
     const { userName } = useParams<{ userName: string }>();
+    const [allRepos, setAllRepos] = useState<ReposProps[]>([]);
     const [repos, setRepos] = useState<ReposProps[]>([]);
     const [error, setError] = useState(false);
 
     const loadRepos = async(userName: string) => {
         setError(false);
         setRepos([]);
+        setAllRepos([]);
 
         const res = await fetch(`https://api.github.com/users/${userName}/repos`)
         const data = await res.json();
@@ -31,6 +32,7 @@ const ReposPage: React.FC = () => {
             stargazers_count: repo.stargazers_count
         }));
 
+        setAllRepos(reposData);
         setRepos(reposData);
     };
 
@@ -40,9 +42,21 @@ const ReposPage: React.FC = () => {
         }
     }, [userName]);
 
+    const filterRepos = (search: string) => {
+        if (!search) {
+            setRepos(allRepos);
+        } else {
+            setRepos(
+                allRepos.filter(repo =>
+                    repo.name.toLowerCase().includes(search.toLowerCase())
+                )
+            );
+        }
+    };
+
     return (
         <div>
-            <SearchRepos loadRepos={loadRepos}/>
+            <SearchRepos onSearch={filterRepos}/>
             <div className="repos-container">
                 {repos.map((repo) => (
                     <Repos key={repo.html_url} {...repo} />

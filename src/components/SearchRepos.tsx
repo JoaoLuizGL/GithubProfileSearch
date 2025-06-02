@@ -1,30 +1,36 @@
-type SearchProps = {
-    loadRepos: (reposName: string) => Promise<void>;
-}
-import { useState } from "react";
-import { BsSearch } from "react-icons/bs";
+import { useState, useRef } from "react";
 import classes from './SearchRepos.module.css';
-import type { KeyboardEvent } from "react";
 
-const SearchRepos = ({loadRepos}:SearchProps) => {
-    const [reposName, setReposName] = useState<string>("");
+type SearchProps = {
+    onSearch: (search: string) => void;
+};
 
-    const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            loadRepos(reposName);
+const SearchRepos = ({ onSearch }: SearchProps) => {
+    const [search, setSearch] = useState("");
+    const debounceRef = useRef<number | null>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSearch(value);
+
+        if (debounceRef.current) {
+            clearTimeout(debounceRef.current);
         }
+        debounceRef.current = window.setTimeout(() => {
+            onSearch(value);
+        }, 200);
     };
 
     return (
         <div className={classes.search}>
             <h2>Busque por um repositório:</h2>
             <div className={classes.searchContainer}>
-                <input type="text" placeholder="Digite o nome do repositório" 
-                onChange={(e) => setReposName(e.target.value)}
-                onKeyDown={handleKeyDown}/>
-                <button onClick={() => loadRepos(reposName)}>
-                    <BsSearch/>
-                </button> 
+                <input
+                    type="text"
+                    placeholder="Digite o nome do repositório"
+                    value={search}
+                    onChange={handleChange}
+                />
             </div>
         </div>
     );
