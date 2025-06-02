@@ -6,15 +6,23 @@ import Error from '../components/Error';
 import SearchRepos from '../components/SearchRepos';
 
 const ReposPage: React.FC = () => {
+
+    console.log("ReposPage");
     const [repos, setRepos] = useState<ReposProps | null>(null);
     const [error, setError] = useState(false);
 
     const loadRepos = async(userName: string) => {
+
+        console.log("loadRepos");
+
         setError(false);
         setRepos(null);
 
-        const res = await fetch(`https://api.github.com/users/${userName}/repos`)
+        // const res = await fetch(`https://api.github.com/users/${userName}/repos`)
+        const res = await fetch("https://api.github.com/repos/JoaoLuizGL/Pokedex")
         const data = await res.json();
+
+        console.log(res.status);
         
         if (res.status !== 200) {
             setError(true);
@@ -22,12 +30,14 @@ const ReposPage: React.FC = () => {
         }
 
         const reposData: ReposProps = {
+            owner: data.owner.login,
             name: data.name,
             repos_url: data.repos_url,
-            languages: data.languages,
+            language: data.language,
             forks: data.forks,
             stargazers_count: data.stargazers_count
         }
+        console.log(reposData);
         setRepos(reposData);
     };
 

@@ -1,0 +1,64 @@
+.repos {
+    background-color: #161b22;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.stats{
+    display: flex;
+}
+
+.stats div {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+}
+
+.stats div:first-child{
+    border-right: 1px solid #6e7681;
+}
+
+.stats .number{
+    padding: .2rem .4rem;
+    background-color: #6e7681;
+    border-radius: 3px;
+}
+
+.icons{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.icons svg {
+    font-size: 1.5rem;
+    background-color: #010409;
+}
+.icons span {
+    color: #006aff;
+}
+
+.language {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.repos a{
+    text-align: center;
+    padding: 1rem;
+    background-color: #010409;
+    border-radius: 5px;
+    opacity: .75;
+    transition: .3s;
+}
+
+.repos a:hover{
+    opacity: 1;
+}

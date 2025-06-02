@@ -1,36 +1,35 @@
 import React from 'react';
 import type { ReposProps } from '../types/Repos';
-import { MdLocationPin } from 'react-icons/md';
+import { MdCode } from 'react-icons/md';
+import {MdStar} from 'react-icons/md';
+import { MdForkRight } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import classes from './User.module.css';
+import classes from './Repos.module.css';
 
-const Repos = ({name, repos_url, languages, forks, stargazers_count}:ReposProps) => {
+const Repos = ({owner, name, repos_url, language, forks, stargazers_count}:ReposProps) => {
     return (
     <div>
-        <div className={classes.user}>
+        <div className={classes.repos}>
+            <h2>{name}</h2>
             <div>
-            <img src={name} alt={repos_url} />
-            <h2>{repos_url}</h2>
-            </div>
-            <div>
-            {languages && (
-                <p className={classes.languages}>
-                <MdLocationPin/>
-                <span>{languages}</span>
-                </p>    
+            {language && (
+                <div className={classes.language}>
+                <MdCode className={classes.icons}/>
+                <span>{language}</span>
+                </div>
             )}
             </div>
         <div className={classes.stats}>
         <div>
-            <p>Seguidores: </p>
+            <MdStar className={classes.icons}/>
             <p className={classes.number}>{forks}</p>
         </div>
         <div>
-            <p>Seguindo: </p>
+            <MdForkRight className={classes.icons}/>
             <p className={classes.number}>{stargazers_count}</p>
         </div>
         </div>
-        <Link to={`/repos/${repos_url}`}> Ver Repositórios </Link>
+        <Link to={`/repo/${owner}/${name}`} className=''>Ver código</Link>
         </div>
     </div>    
     );
